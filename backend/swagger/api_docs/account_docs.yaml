@@ -1,0 +1,229 @@
+openapi: 3.0.0
+info:
+  title: Bank database API
+  version: 1.0.0
+  description: API documentation for a bank database
+paths:
+  /api/account:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Get all accounts
+      responses:
+        '200':
+          description: A list of accounts
+        '500':
+          description: Server error
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Creates a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idaccount:
+                  type: string
+                balance:
+                  type: number
+                account_type:
+                  type: string
+                credit_limit:
+                  type: number
+                idowner:
+                  type: integer
+      responses:
+        '200':
+          description: Account created
+        '400':
+          description: All required fields were not included in request body or the same account ID already exists
+        '404':
+          description: Customer ID provided for account does not exist
+        '500':
+          description: Server error
+  /api/account/{idaccount}:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Get account by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      responses:
+        '200':
+          description: List of accounts, an empty list is returned if no accounts were found
+        '500':
+          description: Server error
+    put:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Update all fields for account by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idaccount:
+                  type: string
+                balance:
+                  type: number
+                account_type:
+                  type: string
+                credit_limit:
+                  type: number
+                idowner:
+                  type: integer
+      responses:
+        '200':
+          description: Account updated
+        '400':
+          description: All required fields were not included in request body 
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
+    patch:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Update specific fields for account by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                balance:
+                  type: number
+      responses:
+        '200':
+          description: Account updated
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
+    delete:
+      security:
+      - bearerAuth: []
+      tags:
+        - Accounts
+      summary: Delete account by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      responses:
+        '200':
+          description: Account deleted
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
+  /api/account/{idaccount}/withdraw:
+    patch:
+      security:
+      - bearerAuth: []
+      tags:
+        - withdraw & deposit prosedures
+      summary: withdraw money from account
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withdrawAmount:
+                  type: number
+                  example: 100
+                description:
+                  type: string
+                  example: ATM withdrawal
+      responses:
+        '200':
+          description: withdraw completed
+        '403':
+          description: Insufficient funds, credit limit exceeded, or invalid amount
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
+  /api/account/{idaccount}/deposit:
+    patch:
+      security:
+      - bearerAuth: []
+      tags:
+        - withdraw & deposit prosedures
+      summary: deposit money to account
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                depositAmount:
+                  type: number
+                  example: 100
+                description:
+                  type: string
+                  example: ATM deposit
+      responses:
+        '200':
+          description: deposit completed
+        '403':
+          description: Insufficient funds, credit limit exceeded, or invalid amount
+        '404':
+          description: Account not found
+        '500':
+          description: Server error

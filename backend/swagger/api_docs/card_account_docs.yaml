@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Bank database API
+  version: 1.0.0
+  description: API documentation for a bank database
+paths: 
+  /api/card_account/accounttocard:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - Cards & accounts
+      summary: Add account to card
+      requestBody:
+        required: ture
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idcard:
+                  type: string
+                  description: Card where to add
+                  example: idcard
+                idaccount:
+                  type: string
+                  description: Account what to add
+                  example: idaccount
+      responses:
+        '200':
+          description: Account added to card
+        '400':
+          description: All required fields were not included in request body
+        '409':
+          description: The card already has two accounts or the same type of account connected to it
+        '404':
+          description: Specified account and/or card do not exist 
+        '500':
+          description: Server error
+  /api/card_account/removeaccountfromcard:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Cards & accounts
+      summary: Delete account from card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idcard:
+                  type: string
+                  description: Card from where to delete
+                  example: idcard
+                idaccount:
+                  type: string
+                  description: Account what to delete
+                  example: idaccount
+      responses:
+        '200':
+          description: Account deleted from card
+        '400':
+          description: All required fields were not included in request body or the specified card does not have any accounts connected to it
+        '404':
+          description: Specified card or account does not exist
+        '500':
+          description: Server error
+                  

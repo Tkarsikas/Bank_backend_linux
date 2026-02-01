@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: Bank database API
+  version: 1.0.0
+  description: API documentation for a bank database
+paths:
+  /api/account_customer:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Get all account_customer data
+      responses:
+        '200':
+          description: A list of account_customer table
+        '500':
+          description: Server error
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Creates a new account_customer connection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: number
+                account_id:
+                  type: string
+      responses:
+        '200':
+          description: Account_customer created
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+  /api/account_customer/{idaccount_customer}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Get account_customer data by ID
+      parameters:
+        - in: path
+          name: idaccount_customer
+          required: true
+          schema:
+            type: number
+          description: The account_customer ID
+      responses:
+        '200':
+          description: List of account_customer records, an empty list is returned if no records are found
+        '404':
+          description: Account_customer not found
+        '500':
+          description: Server error
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Update all fields for account_customer by ID
+      parameters:
+        - in: path
+          name: idaccount_customer
+          required: true
+          schema:
+            type: number
+          description: The account_customer ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: number
+                account_id:
+                  type: string
+      responses:
+        '200':
+          description: Account_customer updated
+        '400':
+          description: All required fields were not included in request body 
+        '404':
+          description: Account_customer not found
+        '500':
+          description: Server error or validation error
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Update specific fields for account_customer by ID
+      parameters:
+        - in: path
+          name: idaccount_customer
+          required: true
+          schema:
+            type: number
+          description: The account_customer ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: number
+                account_id:
+                  type: string
+      responses:
+        '200':
+          description: Account_customer updated
+        '404':
+          description: Account_customer not found
+        '500':
+          description: Server error
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - account_customer
+      summary: Delete account_customer by ID
+      parameters:
+        - in: path
+          name: idaccount_customer
+          required: true
+          schema:
+            type: number
+          description: The account_customer ID
+      responses:
+        '200':
+          description: Account_customer deleted
+        '404':
+          description: Account_customer not found
+        '500':
+          description: Server error
+  /api/account_customer/{idcustomer}/customerdata:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - prosedure account_customer
+      summary: Call prosedure customerData by ID
+      parameters:
+          - in: path
+            name: idcustomer
+            required: true
+            schema:
+              type: number
+            description: The customer ID
+      responses:
+        '200':
+          description: Customerid related data found
+        '404':
+          description: Customerid related data not found
+        '500':
+          description: Server error
+  /api/account_customer/{idaccount}/accountdata:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - prosedure account_customer
+      summary: Call prosedure accountData by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      responses:
+        '200':
+          description: Accountid related data found
+        '404':
+          description: Accountid related data not found
+        '500':
+          description: Server error

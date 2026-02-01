@@ -1,0 +1,3 @@
+SQL_SERVER="mysql://<username>:<password>@127.0.0.1:3306/<database>"
+MY_TOKEN='TÄHÄN_JOKU_SATUNNAINEN_RIITTÄVÄN_PITKÄ_MERKKIJONO'
+// Esim. suorita PowerShellissä: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
