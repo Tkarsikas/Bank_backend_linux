@@ -2,6 +2,7 @@ var express = require('express');
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger/swagger.js");
+const cors = require('cors');
 
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -19,7 +20,8 @@ var account_customerRouter = require('./routes/account_customer');
 const authenticateToken = require('./middleware/auth');
 
 var app = express();
-
+// Sallii kaikki osoitteet (helpoin testaukseen)
+app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(3001, () => {
