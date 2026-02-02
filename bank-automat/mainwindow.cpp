@@ -19,7 +19,8 @@ MainWindow::~MainWindow()
 void MainWindow::btnLoginSlot()
 {
     // Set request url and header
-    QString url = environment::base_url() + "api/login";
+    QString url = environment::base_url() + "api/login/";
+    qDebug()<<url;
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
