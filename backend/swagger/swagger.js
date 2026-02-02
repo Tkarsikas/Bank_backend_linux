@@ -31,7 +31,7 @@ const options = {
 
     servers: [
       {
-        url: "http://86.50.190",
+        url: "http://86.50.23.190",
       },
     ],
 
